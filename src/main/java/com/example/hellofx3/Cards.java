@@ -1,5 +1,7 @@
 package com.example.hellofx3;
 
+import javafx.scene.image.ImageView;
+
 public class Cards {
     private String name;
     private int energyCost;
@@ -22,13 +24,16 @@ public class Cards {
 
 
     /** Subclasses inheriting main methods from cards class */
-    class Strike extends Cards {
+    static class Strike extends Cards {
         private int damage;
+        private ImageView imageView;
 
 
-        public Strike(String name,int energyCost, int damage) {
-            super(name, energyCost);
-            this.damage = damage;
+
+
+        public Strike() {
+            super("Strike", 1);
+            this.damage = 6;
         }
 
         public int getDamage() {
@@ -42,15 +47,15 @@ public class Cards {
         }
     }
 
-    class Defend extends Cards{
+    static class Defend extends Cards{
         private int defense;
 
 
 
-        public Defend(String name, int energyCost, int defense) {
-            super(name, energyCost);
+        public Defend() {
+            super("Defend", 1);
 
-            this.defense = defense;
+            this.defense = 6;
         }
 
         public int getDefense(){
@@ -58,13 +63,13 @@ public class Cards {
         }
     }
 
-    class Fireball extends Cards{
+    static class Fireball extends Cards{
         private int damage;
 
 
-        public Fireball(String name, int energyCost, int damage) {
-            super(name, energyCost);
-            this.damage = damage;
+        public Fireball() {
+            super("FireBall",2);
+            this.damage = 10;
         }
 
         public int getDamage(){
@@ -74,13 +79,13 @@ public class Cards {
 
     }
 
-    class Heal extends Cards{
+    static class Heal extends Cards{
         private int life;
 
 
-        public Heal(String name, int energyCost, int life) {
-            super(name, energyCost);
-            this.life = life;
+        public Heal() {
+            super("Heal", 2);
+            this.life = 10;
         }
 
         public int getLife(){
@@ -88,12 +93,12 @@ public class Cards {
         }
     }
 
-    class ShieldBash extends Cards{
+    static class ShieldBash extends Cards{
         private int defense;
         private int damage;
 
-        public ShieldBash (String name, int energyCost, int defense, int damage) {
-            super(name, energyCost);
+        public ShieldBash () {
+            super("ShielBash", 2);
             this.defense = defense;
             this.damage = defense;
         }

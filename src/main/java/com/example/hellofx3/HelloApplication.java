@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("cardvalley.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("mainMenu.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));

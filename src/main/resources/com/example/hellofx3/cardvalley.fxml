@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hellofx3.Controller">
+<AnchorPane cache="true" cacheHint="SCALE" prefHeight="191.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hellofx3.Controller">
    <children>
-      <Rectangle fx:id="card" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="138.0" layoutX="135.0" layoutY="256.0" onMouseDragged="#handleDrag" onMousePressed="#handlePress" stroke="BLACK" strokeType="INSIDE" width="92.0" />
-      <Rectangle fx:id="card1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="138.0" layoutX="266.0" layoutY="256.0" onMouseDragged="#handleDrag" onMousePressed="#handlePress" onMouseReleased="#handleRelease" stroke="BLACK" strokeType="INSIDE" width="92.0" />
-      <Polygon fx:id="enemy" fill="DODGERBLUE" layoutX="480.0" layoutY="194.0" stroke="BLACK" strokeType="INSIDE">
-        <points>
-          <Double fx:value="-50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="50.0" />
-          <Double fx:value="40.0" />
-          <Double fx:value="0.0" />
-          <Double fx:value="-60.0" />
-        </points>
-      </Polygon>
+      <Rectangle fx:id="card" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="92.0" layoutY="23.0" onMouseDragged="#handleDrag" onMousePressed="#handlePress" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+      <Polygon fx:id="enemy" fill="DODGERBLUE" layoutX="127.0" layoutY="25.0" points="-23.0, 9.0, 0.0, 22.0, -13.0, -10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Rectangle fx:id="card1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="16.0" layoutX="55.0" layoutY="15.0" onMouseDragged="#handleDrag" onMousePressed="#handlePress" onMouseReleased="#handleRelease" stroke="BLACK" strokeType="INSIDE" width="12.0" />
+      <ImageView cache="true" cacheHint="QUALITY" fitHeight="101.0" fitWidth="137.0" layoutX="173.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/MainGuy.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
