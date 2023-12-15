@@ -1,15 +1,24 @@
 package com.example.hellofx3;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Cards {
+public abstract class Cards {
+
+
+    private static Image cardImage;
     private String name;
     private int energyCost;
 
     public Cards(String name, int energyCost) {
+
         this.name = name;
         this.energyCost = energyCost;
+
+
+
     }
+
 
     public String getName(){
         return name;
@@ -17,81 +26,85 @@ public class Cards {
     public int getEnergyCost(){
         return energyCost;
     }
+
+    public Image getCardImage() {
+        return cardImage;
+    }
+
     //method to use card
-    public void useCard(){
+    public int useCard(){
         System.out.println(name);
+        return 0;
     }
 
 
     /** Subclasses inheriting main methods from cards class */
     static class Strike extends Cards {
-        private int damage;
+        private static int damage = 6;
         private ImageView imageView;
 
-
+        @Override
+        public Image getCardImage(){
+            return super.getCardImage();
+        }
 
 
         public Strike() {
             super("Strike", 1);
-            this.damage = 6;
+
+
         }
 
         public int getDamage() {
+
             return damage;
         }
 
-        @Override
-        public void useCard() {
-            System.out.println("Performing a strike with " + damage + " damage!");
-            // Code for dealing damage to an enemy can be added here
+
+        public void useCard(GameLoop.Characther character, GameLoop.Enemy enemy) {
+            if(character.getEnergy() >= this.getEnergyCost()) {
+                System.out.println("Performing a strike with " + damage + " damage!");
+                enemy.takeDamage(damage);
+                character.useEnergy(this.getEnergyCost());
+            } else {
+                System.out.println("Not enough energy to perform strike");
+            }
         }
+
     }
 
     static class Defend extends Cards{
-        private int defense;
+        private int defense = 6;
 
 
 
         public Defend() {
             super("Defend", 1);
 
-            this.defense = 6;
+
         }
 
         public int getDefense(){
             return defense;
         }
-    }
 
-    static class Fireball extends Cards{
-        private int damage;
-
-
-        public Fireball() {
-            super("FireBall",2);
-            this.damage = 10;
+        public void useCard(GameLoop.Characther character) {
+            if (character.getEnergy() >= this.getEnergyCost()) {
+                character.setDefense(this.defense); // Add defense value to character
+                GameLoop.Characther.useEnergy(this.getEnergyCost());
+                System.out.println("Defense increased by " + this.defense);
+            } else {
+                System.out.println("Not enough energy to defend");
+            }
         }
 
-        public int getDamage(){
-            return damage;
-        }
-
-
-    }
-
-    static class Heal extends Cards{
-        private int life;
-
-
-        public Heal() {
-            super("Heal", 2);
-            this.life = 10;
-        }
-
-        public int getLife(){
-            return life ;
+        @Override
+        public Image getCardImage(){
+            return super.getCardImage();
         }
     }
+
+
 
     static class ShieldBash extends Cards{
         private int defense;
@@ -99,9 +112,23 @@ public class Cards {
 
         public ShieldBash () {
             super("ShielBash", 2);
-            this.defense = defense;
-            this.damage = defense;
         }
+        public void useCard(GameLoop.Characther character, GameLoop.Enemy enemy) {
+            if (character.getEnergy() >= this.getEnergyCost()) {
+                int damageBasedOnDefense = character.getDefense();
+                System.out.println("Performing Shield Bash with " + damageBasedOnDefense + " damage!");
+                enemy.takeDamage(damageBasedOnDefense);
+                GameLoop.Characther.useEnergy(this.getEnergyCost());
+            } else {
+                System.out.println("Not enough energy to perform Shield Bash");
+            }
+        }
+
+        @Override
+        public Image getCardImage(){
+            return super.getCardImage();
+        }
+
 
         public int getDefense() {
             return defense;

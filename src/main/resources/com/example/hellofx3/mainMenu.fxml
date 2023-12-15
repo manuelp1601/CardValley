@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hellofx3.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.hellofx3.MainMenuController">
    <children>
       <Button fx:id="DemoButton" layoutX="47.0" layoutY="258.0" mnemonicParsing="false" onAction="#switchScene2" text="Play Demo">
          <font>
