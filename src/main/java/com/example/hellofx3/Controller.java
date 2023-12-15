@@ -4,6 +4,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,14 +34,21 @@ public class Controller {
 
 
 
+
+   @FXML
+   private AnchorPane anchorPane;
+
+   @FXML
+   private Button bashButton;
+
    @FXML
    private ImageView character;
 
    @FXML
-   private Pane pane;
+   private Button defendButton;
 
    @FXML
-   private AnchorPane anchorPane;
+   private Label enemyActionLabel;
 
    @FXML
    private Circle enemyCircle;
@@ -49,27 +57,34 @@ public class Controller {
    private Label enemyHealthlabel;
 
    @FXML
-   private Label healthLabel;
+   private Label enemyShieldLabel;
+
    @FXML
    private Label energyLabel;
+
+   @FXML
+   private Label healthLabel;
 
    @FXML
    private Button nextTurnButton;
 
    @FXML
-   private Button strikeButton;
-
-   @FXML
-   private Button  defendButton;
-
-   @FXML
-   private Button bashButton;
-
-   @FXML
-   private Label timerLabel;
+   private Pane pane;
 
    @FXML
    private Label shieldLabel;
+
+   @FXML
+   private ImageView shieldimg;
+
+   @FXML
+   private ImageView shieldimg1;
+
+   @FXML
+   private Button strikeButton;
+
+   @FXML
+   private Label timerLabel;
 
    private List<Cards> deck;
 
@@ -81,6 +96,7 @@ public class Controller {
       timer.play();
 
       gameLoop = new GameLoop();
+      enemyNextAction();
 
       // Empty initialize method, without any parameters
 
@@ -124,18 +140,29 @@ public class Controller {
    public void updateEnemyHealth(int health) {
       enemyHealthlabel.setText(String.valueOf(health));
    }
+   public void updateEnemyShield(int defense) {
+      enemyShieldLabel.setText(String.valueOf(defense));
+   }
 
    public void updateShield(int defend) {
       shieldLabel.setText(String.valueOf(defend));
+   }
+   private void enemyNextAction(){
+      String nextAction = gameLoop.getEnemy().previewNextAction();
+      enemyActionLabel.setText("Enemy is going to " + nextAction);
    }
 
 
    @FXML
    private void nextTurn(ActionEvent event) throws IOException {
-      // Enemy attacks the character
-      gameLoop.getCharacther().takeDamage(gameLoop.getEnemy().attack());
+      // Enemy performs their turn action
+      gameLoop.getEnemy().enemyTurn();
 
-      // Update the health label after taking damage
+      enemyNextAction();
+      checkWin();
+      checkLose();
+
+      // Update the character's health label after taking damage
       updateHealth(gameLoop.getCharacther().getHealth());
 
       // Reset the character's defense to 0 for the next turn and update the shield label
@@ -146,6 +173,9 @@ public class Controller {
       gameLoop.getCharacther().resetEnergy();
       updateEnergy(gameLoop.getCharacther().getEnergy());
 
+      // Update the enemy's health label (in case the enemy took damage during the turn)
+      updateEnemyHealth(gameLoop.getEnemy().getHealth());
+      updateEnemyShield(gameLoop.getEnemy().getDefense());
 
    }
 
@@ -157,6 +187,7 @@ public class Controller {
       updateHealth(gameLoop.getCharacther().getHealth());
       updateEnemyHealth(gameLoop.getEnemy().getHealth());
       updateEnergy(gameLoop.getCharacther().getEnergy());
+      updateEnemyShield(gameLoop.getEnemy().getDefense());
    }
 
    @FXML
@@ -180,6 +211,59 @@ public class Controller {
       updateEnemyHealth(gameLoop.getEnemy().getHealth());
       updateEnergy(gameLoop.getCharacther().getEnergy());
       updateShield(gameLoop.getCharacther().getDefense());
+
+   }
+
+   //WIn and lose screens
+   private void checkWin() {
+      if(gameLoop.getEnemy().getHealth() <= 0) {
+         showWinScreen();
+      }
+   }
+   private void checkLose() {
+      if(gameLoop.getCharacther().getHealth() <= 0) {
+         showLoseScreen();
+      }
+   }
+
+   private void showWinScreen() {
+      try {
+         // Load the win screen FXML
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("WinScreen.fxml"));
+         Parent winRoot = loader.load();
+
+         // Create a new stage for the win screen
+         Stage winStage = new Stage();
+         winStage.setScene(new Scene(winRoot));
+         winStage.setTitle("You Win!");
+         winStage.show();
+
+         // Optional: Close the current game window
+         // ((Stage) pane.getScene().getWindow()).close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Handle the exception (show an error message, etc.)
+      }
+   }
+
+   private void showLoseScreen() {
+      try {
+         // Load the win screen FXML
+         FXMLLoader loader = new FXMLLoader(getClass().getResource("loseScreen.fxml"));
+         Parent winRoot = loader.load();
+
+         // Create a new stage for the win screen
+         Stage winStage = new Stage();
+         winStage.setScene(new Scene(winRoot));
+         winStage.setTitle("You Lose!");
+         winStage.show();
+
+         // Optional: Close the current game window
+         // ((Stage) pane.getScene().getWindow()).close();
+      } catch (IOException e) {
+         e.printStackTrace();
+         // Handle the exception (show an error message, etc.)
+      }
    }
 
 

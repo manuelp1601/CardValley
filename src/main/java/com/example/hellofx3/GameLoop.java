@@ -2,10 +2,11 @@ package com.example.hellofx3;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameLoop {
     private static Controller controller;
-    private Enemy enemy = new Enemy();
+    private static Enemy enemy = new Enemy();
     private Characther characther = new Characther();
     private final List<Cards> deck = new ArrayList<>();
     private List<Cards> hand = new ArrayList<>();
@@ -69,7 +70,7 @@ public class GameLoop {
             }
             return energy;
         }
-        public int takeDamage(int damage) {
+        public static int takeDamage(int damage) {
             if (defense >= damage) {
                 // If defense is greater than or equal to damage, deduct damage from defense
                 defense -= damage;
@@ -111,35 +112,96 @@ public class GameLoop {
     static class Enemy {
         private int health = 50;
         private int defense;
-        private  int damage = 6;
+        private int damage;
+        private String nextAction;
 
+        public Enemy(){
+            prepareNextAction();
+        }
 
         public void takeDamage(int damage) {
-            health = Math.max(health - damage, 0);
+            if (defense > 0) {
+                int effectiveDamage = Math.max(damage - defense, 0);
+                defense = Math.max(defense - damage, 0);
+                health -= effectiveDamage;
+            } else {
+                health = Math.max(health - damage, 0);
+            }
         }
 
 
         public void setDefense(int shield) {
-            if (shield > 0) {
-                defense += shield;
-
-                if (defense <= 0) {
-                    defense = 0;
-                }
-            }
+            defense += shield;
         }
 
-        public int attack (){
+        public int attack() {
             damage = 10;
-            return damage ;
+            return damage;
         }
 
-        public void buff () {
+        public int defend() {
+            defense = 6;
+            return defense;
+        }
+
+        public void buff() {
             damage *= 2;
         }
 
-        public int getHealth(){
+
+        public int getHealth() {
             return health;
+        }
+        public int getDefense() {
+            return defense;
+        }
+
+        // Method to determine the next action
+        private void prepareNextAction() {
+            Random rand = new Random();
+            int action = rand.nextInt(3); // Randomly choose between 0, 1, and 2
+
+            switch (action) {
+                case 0:
+                    nextAction = "Attack";
+                    break;
+                case 1:
+                    nextAction = "Defend";
+                    break;
+                case 2:
+                    nextAction = "Buff";
+                    break;
+                default:
+                    nextAction = "Unknown";
+                    break;
+            }
+        }
+
+        // Public method to preview the next action
+        public String previewNextAction() {
+            return nextAction;
+        }
+
+
+        //enemy turn actions
+        // enemyTurn method now uses the stored nextAction
+        public void enemyTurn() {
+            defense = 0;
+            switch (nextAction) {
+                case "Attack":
+                    GameLoop.Characther.takeDamage(attack());
+                    System.out.println("attack");
+                    break;
+                case "Defend":
+                    defend();
+                    System.out.println("defend" + defense);
+                    break;
+                case "Buff":
+                    buff();
+                    System.out.println("buff");
+                    break;
+            }
+            prepareNextAction(); // Prepare the next action for the upcoming turn
         }
     }
 }

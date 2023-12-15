@@ -25,6 +25,7 @@ public class MainMenuController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 }
 

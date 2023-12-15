@@ -78,14 +78,14 @@
             <Button fx:id="strikeButton" layoutX="379.0" layoutY="387.0" mnemonicParsing="false" onAction="#StrikeButton" text="Strike" />
             <Button fx:id="defendButton" layoutX="486.0" layoutY="387.0" mnemonicParsing="false" onAction="#defendButton" text="Defend" />
             <Button fx:id="bashButton" layoutX="581.0" layoutY="387.0" mnemonicParsing="false" onAction="#shieldBashButton" text="ShieldBash" />
-            <ImageView fitHeight="229.0" fitWidth="234.0" layoutX="789.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="244.0" fitWidth="270.0" layoutX="693.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/Hearth.png" />
                </image>
             </ImageView>
-            <Label fx:id="enemyHealthlabel" layoutX="896.0" layoutY="341.0" prefHeight="53.0" prefWidth="31.0" text="50" textFill="#6b2768">
+            <Label fx:id="enemyHealthlabel" layoutX="804.0" layoutY="339.0" prefHeight="51.0" prefWidth="41.0" text="50">
                <font>
-                  <Font name="Baloo Bhai 2 Medium" size="20.0" />
+                  <Font name="Baloo Bhai 2 Medium" size="33.0" />
                </font>
             </Label>
             <ImageView fx:id="shieldimg" fitHeight="90.0" fitWidth="101.0" layoutX="111.0" layoutY="393.0" pickOnBounds="true" preserveRatio="true">
@@ -96,6 +96,21 @@
             <Label fx:id="shieldLabel" layoutX="147.0" layoutY="418.0" prefHeight="43.0" prefWidth="57.0" text="0">
                <font>
                   <Font size="41.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="shieldimg1" fitHeight="90.0" fitWidth="101.0" layoutX="887.0" layoutY="320.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/shield.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="enemyShieldLabel" layoutX="920.0" layoutY="334.0" prefHeight="43.0" prefWidth="57.0" text="0">
+               <font>
+                  <Font size="50.0" />
+               </font>
+            </Label>
+            <Label fx:id="enemyActionLabel" layoutX="682.0" layoutY="70.0" prefHeight="43.0" prefWidth="300.0" textFill="#bf1c1c">
+               <font>
+                  <Font size="25.0" />
                </font>
             </Label>
          </children>
